@@ -24,7 +24,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         Err(e) => println!("couldn't interpret {}: {}", key, e),
     }
     //let res = reqwest::blocking::get("https://api.myip.com")?.json::<ApiRes>()?;
-    Ok(thread::sleep(Duration::from_millis(100)))
+    Ok(thread::sleep(Duration::from_millis(500000)))
     //println!("{}", res.ip);
 
     //Ok(())

@@ -20,6 +20,7 @@ use std::{
 use actix_web::{web, App, HttpServer, HttpResponse};
 
 async fn get_health_status() -> HttpResponse {
+    println!("liveness probe triggered");
     HttpResponse::Ok()
         .content_type("application/json")
         .body("Healthy!")

@@ -34,7 +34,8 @@ async fn main() -> std::io::Result<()> {
         Ok(val) => println!("{}: {:?}", key, val),
         Err(e) => println!("couldn't interpret {}: {}", key, e),
     }
-    HttpServer::new(|| {
+    println!("bind");
+    let server = HttpServer::new(|| {
         App::new()
             .route("/health", web::get().to(get_health_status))
            // ^ Our new health route points to the get_health_status handler
@@ -42,8 +43,9 @@ async fn main() -> std::io::Result<()> {
     .bind(("[::1]:8080"))?
     .run()
     .await;
+    println!("bye");
+    Ok(())
     //let res = reqwest::blocking::get("https://api.myip.com")?.json::<ApiRes>()?;
-    Ok(thread::sleep(Duration::from_millis(500000)))
     //println!("{}", res.ip);
 
     //Ok(())

@@ -19,7 +19,7 @@ COPY ./ .
 
 RUN cargo build --target x86_64-unknown-linux-musl --release
 
-#FROM quay.io/nushell/nu-base:latest AS nubase
+FROM quay.io/nushell/nu-base:latest AS nubase
 #FROM quay.io/gattytto/rst-sleep:latest AS sleepbase
 
 ####################################################################################################
@@ -33,7 +33,7 @@ COPY --from=builder /etc/group /etc/group
 
 WORKDIR /
 COPY --from=builder /target/x86_64-unknown-linux-musl/release/myip ./
-#COPY --from=nubase /usr/local/bin/nu /nu
+COPY --from=nubase /usr/local/bin/nu /nu
 #COPY --from=sleepbase /sleep /sleep
 
 USER rust:rust

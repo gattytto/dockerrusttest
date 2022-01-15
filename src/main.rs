@@ -17,12 +17,30 @@ use std::{
     time::Duration,
 };
 
-fn main() -> Result<(), Box<dyn Error>> {
+use actix_web::{web, App, HttpServer, HttpResponse};
+
+async fn get_health_status() -> HttpResponse {
+    HttpResponse::Ok()
+        .content_type("application/json")
+        .body("Healthy!")
+}
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+//fn main() -> Result<(), Box<dyn Error>> {
     let key="KUBERNETES_SERVICE_HOST";
     match env::var(key) {
         Ok(val) => println!("{}: {:?}", key, val),
         Err(e) => println!("couldn't interpret {}: {}", key, e),
     }
+    HttpServer::new(|| {
+        App::new()
+            .route("/health", web::get().to(get_health_status))
+           // ^ Our new health route points to the get_health_status handler
+    })
+    .bind(("::", 8080))?
+    .run()
+    .await;
     //let res = reqwest::blocking::get("https://api.myip.com")?.json::<ApiRes>()?;
     Ok(thread::sleep(Duration::from_millis(500000)))
     //println!("{}", res.ip);

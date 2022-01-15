@@ -39,7 +39,7 @@ async fn main() -> std::io::Result<()> {
             .route("/health", web::get().to(get_health_status))
            // ^ Our new health route points to the get_health_status handler
     })
-    .bind(("http://[::1]:8080"))?
+    .bind(("[::1]:8080"))?
     .run()
     .await;
     //let res = reqwest::blocking::get("https://api.myip.com")?.json::<ApiRes>()?;

@@ -44,7 +44,7 @@ async fn main() -> std::io::Result<()> {
 // up, not loopback and has an IP.
     let default_interface = all_interfaces
         .iter()
-        .find(|e| e.is_up() && !e.is_loopback() && !e.ips.is_empty());
+        .find(|e| e.is_up() && !e.is_loopback() && !e.ips.is_empty() && !e.ips[1].to_string().contains("fe80"));
     let mut ip=String::new();
     match default_interface {
         Some(interface) => ip.push_str(&interface.ips[1].to_string()),
